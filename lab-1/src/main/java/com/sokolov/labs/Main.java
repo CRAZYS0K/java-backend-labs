@@ -8,7 +8,7 @@ import com.sokolov.labs.parser.impl.*;
 import java.util.PriorityQueue;
 
 /*
- PriorityQueue — топ-3 по длине имени
+PriorityQueue — топ-3 по длине имени
 Считать персонажей в PriorityQueue, где приоритет = длина имени.
 Извлечь 3 самых длинных имени и записать их в файл.
 */
