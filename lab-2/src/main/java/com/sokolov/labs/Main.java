@@ -15,7 +15,7 @@ public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        log.info("Starting Lab 2...");
+        log.info("Starting Lab 2");
 
         DatabaseConfig config = new DatabaseConfig();
         config.runMigrations();
@@ -26,10 +26,10 @@ public class Main {
         int savedId = repository.save(yandex);
         log.info("Saved company with ID: {}", savedId);
 
-        CompanyEntity foundById = repository.findById(savedId);
+        CompanyEntity foundById = repository.findById(savedId).orElse(null);
         log.info("Found by ID: {}", foundById);
 
-        CompanyEntity foundByName = repository.findByName("Yandex");
+        CompanyEntity foundByName = repository.findByName("Yandex").orElse(null);
         log.info("Found by Name: {}", foundByName);
 
         if (foundById != null) {

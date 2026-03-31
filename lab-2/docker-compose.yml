@@ -1,10 +1,10 @@
 services:
-  db:
-    image: postgres:15
-    container_name: company_db
+  postgres:
+    image: postgres:18
+    restart: no
+    environment:
+      POSTGRES_DB: company_db
+      POSTGRES_USER: company_admin
+      POSTGRES_PASSWORD: secret_password
     ports:
       - "5433:5432"
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: company_db

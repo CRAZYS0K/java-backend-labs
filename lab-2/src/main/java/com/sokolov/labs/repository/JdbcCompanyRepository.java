@@ -1,17 +1,16 @@
 package com.sokolov.labs.repository;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sokolov.labs.exception.RepositoryException;
 import com.sokolov.labs.model.CompanyEntity;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class JdbcCompanyRepository implements CompanyRepository {
 
-    private static final Logger log = LoggerFactory.getLogger(JdbcCompanyRepository.class);
     private final HikariDataSource dataSource;
 
     private static final String SAVE_SQL = "INSERT INTO company (name, employees_count) VALUES (?, ?)";
@@ -29,7 +28,6 @@ public class JdbcCompanyRepository implements CompanyRepository {
     public int save(CompanyEntity entity) {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-
             ps.setString(1, entity.getName());
             ps.setInt(2, entity.getEmployeesCount());
             ps.executeUpdate();
@@ -40,45 +38,43 @@ public class JdbcCompanyRepository implements CompanyRepository {
                     entity.setId(id);
                     return id;
                 }
+                throw new RepositoryException("Saving failed, no ID obtained.", null);
             }
         } catch (SQLException e) {
-            log.error("Error saving company", e);
+            throw new RepositoryException("Error saving company", e); // Пробрасываем ошибку!
         }
-        return -1;
     }
 
     @Override
-    public CompanyEntity findById(int id) {
+    public Optional<CompanyEntity> findById(int id) {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(FIND_BY_ID_SQL)) {
-
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return mapRowToEntity(rs);
+                    return Optional.of(mapRowToEntity(rs));
                 }
+                return Optional.empty(); // Никаких return null!
             }
         } catch (SQLException e) {
-            log.error("Error finding company by id", e);
+            throw new RepositoryException("Error finding company by id: " + id, e);
         }
-        return null;
     }
 
     @Override
-    public CompanyEntity findByName(String name) {
+    public Optional<CompanyEntity> findByName(String name) {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(FIND_BY_NAME_SQL)) {
-
             ps.setString(1, name);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return mapRowToEntity(rs);
+                    return Optional.of(mapRowToEntity(rs));
                 }
+                return Optional.empty();
             }
         } catch (SQLException e) {
-            log.error("Error finding company by name", e);
+            throw new RepositoryException("Error finding company by name", e);
         }
-        return null;
     }
 
     @Override
@@ -87,40 +83,36 @@ public class JdbcCompanyRepository implements CompanyRepository {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(FIND_ALL_SQL);
              ResultSet rs = ps.executeQuery()) {
-
             while (rs.next()) {
                 companies.add(mapRowToEntity(rs));
             }
+            return companies;
         } catch (SQLException e) {
-            log.error("Error finding all companies", e);
+            throw new RepositoryException("Error finding all companies", e);
         }
-        return companies;
     }
 
     @Override
     public boolean update(CompanyEntity entity) {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(UPDATE_SQL)) {
-
             ps.setString(1, entity.getName());
             ps.setInt(2, entity.getEmployeesCount());
             ps.setInt(3, entity.getId());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            log.error("Error updating company", e);
+            throw new RepositoryException("Error updating company", e);
         }
-        return false;
     }
 
     @Override
     public void deleteById(int id) {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(DELETE_SQL)) {
-
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
-            log.error("Error deleting company", e);
+            throw new RepositoryException("Error deleting company", e);
         }
     }
 

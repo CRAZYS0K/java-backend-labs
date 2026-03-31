@@ -1,4 +1,4 @@
 db:
-  url: jdbc:postgresql://localhost:5432/company_db
-  user: user
-  password: password
+  url: jdbc:postgresql://localhost:5433/company_db?currentSchema=company_schema
+  user: company_admin
+  password: secret_password
