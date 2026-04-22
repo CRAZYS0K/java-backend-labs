@@ -1,8 +1,8 @@
-package com.sokolov.labs.parser.impl;
+package com.labs.parser.impl;
 
-import com.sokolov.labs.model.User;
-import com.sokolov.labs.parser.CollectionParser;
-import com.sokolov.labs.parser.LineCsvParser;
+import com.labs.model.User;
+import com.labs.parser.CollectionParser;
+import com.labs.parser.LineCsvParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;

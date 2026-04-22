@@ -1,7 +1,6 @@
-package com.sokolov.labs.service;
+package com.labs.service;
 
-import com.sokolov.labs.model.User;
-import com.sokolov.labs.parser.impl.PriorityQueueCsvParser;
+import com.labs.model.User;
 
 import java.io.*;
 import java.util.*;

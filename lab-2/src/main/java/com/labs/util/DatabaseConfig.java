@@ -1,4 +1,4 @@
-package com.sokolov.labs.util;
+package com.labs.util;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

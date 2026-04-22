@@ -1,6 +1,6 @@
-package com.sokolov.labs.writer;
+package com.labs.writer;
 
-import com.sokolov.labs.model.User;
+import com.labs.model.User;
 
 import java.io.*;
 

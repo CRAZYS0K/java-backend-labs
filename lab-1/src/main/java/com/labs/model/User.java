@@ -1,4 +1,4 @@
-package com.sokolov.labs.model;
+package com.labs.model;
 
 import java.util.Objects;
 

@@ -1,8 +1,8 @@
-package com.sokolov.labs.repository;
+package com.labs.repository;
 
 import com.zaxxer.hikari.HikariDataSource;
-import com.sokolov.labs.exception.RepositoryException;
-import com.sokolov.labs.model.CompanyEntity;
+import com.labs.exception.RepositoryException;
+import com.labs.model.CompanyEntity;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class JdbcCompanyRepository implements CompanyRepository {
                 throw new RepositoryException("Saving failed, no ID obtained.", null);
             }
         } catch (SQLException e) {
-            throw new RepositoryException("Error saving company", e); // Пробрасываем ошибку!
+            throw new RepositoryException("Error saving company", e);
         }
     }
 
@@ -54,7 +54,7 @@ public class JdbcCompanyRepository implements CompanyRepository {
                 if (rs.next()) {
                     return Optional.of(mapRowToEntity(rs));
                 }
-                return Optional.empty(); // Никаких return null!
+                return Optional.empty();
             }
         } catch (SQLException e) {
             throw new RepositoryException("Error finding company by id: " + id, e);

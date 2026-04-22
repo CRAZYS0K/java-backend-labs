@@ -1,6 +1,6 @@
-package com.sokolov.labs.parser;
+package com.labs.parser;
 
-import com.sokolov.labs.model.User;
+import com.labs.model.User;
 
 import java.util.Collection;
 

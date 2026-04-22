@@ -1,6 +1,6 @@
-package com.sokolov.labs.repository;
+package com.labs.repository;
 
-import com.sokolov.labs.model.CompanyEntity;
+import com.labs.model.CompanyEntity;
 
 import java.util.List;
 import java.util.Optional;

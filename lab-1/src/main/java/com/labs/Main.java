@@ -1,8 +1,9 @@
-package com.sokolov.labs;
+package com.labs;
 
-import com.sokolov.labs.model.User;
-import com.sokolov.labs.writer.UserWriter;
-import com.sokolov.labs.service.UserCrudService;
+import com.labs.model.User;
+import com.labs.parser.impl.PriorityQueueCsvParser;
+import com.labs.writer.UserWriter;
+import com.labs.service.UserCrudService;
 import com.sokolov.labs.parser.impl.*;
 
 import java.util.PriorityQueue;

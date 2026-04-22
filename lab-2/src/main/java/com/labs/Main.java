@@ -1,11 +1,11 @@
-package com.sokolov.labs;
+package com.labs;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.sokolov.labs.model.CompanyEntity;
-import com.sokolov.labs.repository.CompanyRepository;
-import com.sokolov.labs.repository.JdbcCompanyRepository;
-import com.sokolov.labs.util.DatabaseConfig;
+import com.labs.model.CompanyEntity;
+import com.labs.repository.CompanyRepository;
+import com.labs.repository.JdbcCompanyRepository;
+import com.labs.util.DatabaseConfig;
 
 /*
 Company: id (int), name (String), employeesCount (int)
