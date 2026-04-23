@@ -47,7 +47,7 @@ class CompanyServiceTest {
         }
 
         @Test
-        @DisplayName("пустое имя — выбрасывается IllegalArgumentException")
+        @DisplayName("пустое имя - выбрасывается IllegalArgumentException")
         void save_WithBlankName_ShouldThrowIllegalArgument() {
             assertThrows(IllegalArgumentException.class,
                     () -> service.save("  ", 1000));
@@ -56,7 +56,7 @@ class CompanyServiceTest {
         }
 
         @Test
-        @DisplayName("отрицательное число сотрудников — выбрасывается IllegalArgumentException")
+        @DisplayName("отрицательное число сотрудников - выбрасывается IllegalArgumentException")
         void save_WithNegativeCount_ShouldThrowIllegalArgument() {
             assertThrows(IllegalArgumentException.class,
                     () -> service.save("Yandex", -1));
@@ -70,7 +70,7 @@ class CompanyServiceTest {
     class FindByIdTests {
 
         @Test
-        @DisplayName("запись найдена — возвращается сущность")
+        @DisplayName("запись найдена - возвращается сущность")
         void findById_WhenExists_ShouldReturnEntity() {
             CompanyEntity entity = buildEntity(1, "Yandex", 12000);
             when(repository.findById(1)).thenReturn(Optional.of(entity));
@@ -84,7 +84,7 @@ class CompanyServiceTest {
         }
 
         @Test
-        @DisplayName("запись не найдена — выбрасывается EntityNotFoundException")
+        @DisplayName("запись не найдена - выбрасывается EntityNotFoundException")
         void findById_WhenNotExists_ShouldThrow() {
             when(repository.findById(99)).thenReturn(Optional.empty());
 
@@ -102,7 +102,7 @@ class CompanyServiceTest {
     class FindByNameTests {
 
         @Test
-        @DisplayName("запись найдена — возвращается сущность")
+        @DisplayName("запись найдена - возвращается сущность")
         void findByName_WhenExists_ShouldReturnEntity() {
             CompanyEntity entity = buildEntity(2, "Google", 150000);
             when(repository.findByName("Google")).thenReturn(Optional.of(entity));
@@ -114,7 +114,7 @@ class CompanyServiceTest {
         }
 
         @Test
-        @DisplayName("запись не найдена — выбрасывается EntityNotFoundException")
+        @DisplayName("запись не найдена - выбрасывается EntityNotFoundException")
         void findByName_WhenNotExists_ShouldThrow() {
             when(repository.findByName("Unknown")).thenReturn(Optional.empty());
 
@@ -148,7 +148,7 @@ class CompanyServiceTest {
         }
 
         @Test
-        @DisplayName("таблица пуста — возвращается пустой список")
+        @DisplayName("таблица пуста - возвращается пустой список")
         void findAll_WhenEmpty_ShouldReturnEmptyList() {
             when(repository.findAll()).thenReturn(List.of());
 
@@ -164,7 +164,7 @@ class CompanyServiceTest {
     class UpdateTests {
 
         @Test
-        @DisplayName("успешное обновление — репозиторий вызван")
+        @DisplayName("обновление, репозиторий вызван")
         void update_WhenExists_ShouldCallRepository() {
             CompanyEntity entity = buildEntity(1, "Yandex", 15000);
             when(repository.findById(1)).thenReturn(Optional.of(entity));
@@ -177,7 +177,7 @@ class CompanyServiceTest {
         }
 
         @Test
-        @DisplayName("запись не найдена — выбрасывается EntityNotFoundException, update не вызывается")
+        @DisplayName("запись не найдена, выбрасывается EntityNotFoundException, без update")
         void update_WhenNotExists_ShouldThrowWithoutCallingUpdate() {
             CompanyEntity entity = buildEntity(99, "Ghost", 0);
             when(repository.findById(99)).thenReturn(Optional.empty());
@@ -188,7 +188,7 @@ class CompanyServiceTest {
         }
 
         @Test
-        @DisplayName("null entity — выбрасывается IllegalArgumentException")
+        @DisplayName("null entity")
         void update_WithNull_ShouldThrow() {
             assertThrows(IllegalArgumentException.class, () -> service.update(null));
             verifyNoInteractions(repository);
@@ -200,7 +200,7 @@ class CompanyServiceTest {
     class DeleteByIdTests {
 
         @Test
-        @DisplayName("вызов deleteById делегируется репозиторию")
+        @DisplayName("deleteById делегируется репозиторию")
         void deleteById_ShouldDelegateToRepository() {
             doNothing().when(repository).deleteById(1);
 
@@ -210,7 +210,7 @@ class CompanyServiceTest {
         }
 
         @Test
-        @DisplayName("удаление несуществующей записи — репозиторий всё равно вызывается (silently)")
+        @DisplayName("удаление несуществующей записи")
         void deleteById_NonExistent_ShouldNotThrow() {
             doNothing().when(repository).deleteById(999);
 

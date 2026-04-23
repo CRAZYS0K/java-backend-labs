@@ -17,7 +17,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public int save(String name, int employeesCount) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Company name must not be empety");
+            throw new IllegalArgumentException("Company name must not be empty");
         }
         if (employeesCount < 0) {
             throw new IllegalArgumentException("Employees count must be positive");
